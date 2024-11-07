@@ -5,116 +5,32 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:fitsSystemWindows="true">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:navGraph="@navigation/nav_graph"
+        app:defaultNavHost="true"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <ImageView
-                android:id="@+id/topImage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
-                android:adjustViewBounds="true"
-                app:srcCompat="@drawable/login" />
-
-            <EditText
-                android:id="@+id/editTextName"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/baseline_person_24"
-                android:drawablePadding="7dp"
-                android:ems="10"
-                android:hint="Nome Completo"
-                android:inputType="text" />
-
-            <EditText
-                android:id="@+id/editTextBirth"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/baseline_calendar_today_24"
-                android:drawablePadding="7dp"
-                android:ems="10"
-                android:hint="Data de Nascimento"
-                android:inputType="date"
-                android:focusable="false"
-                android:focusableInTouchMode="false" />
-
-            <EditText
-                android:id="@+id/editTextCpf"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/baseline_assignment_ind_24"
-                android:drawablePadding="7dp"
-                android:ems="10"
-                android:hint="CPF"
-                android:inputType="number" />
-
-            <EditText
-                android:id="@+id/editTextPassword"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/baseline_lock_24"
-                android:drawablePadding="7dp"
-                android:ems="10"
-                android:hint="Senha"
-                android:inputType="textPassword" />
-
-            <EditText
-                android:id="@+id/editTextPasswordCheck"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/baseline_lock_24"
-                android:drawablePadding="7dp"
-                android:ems="10"
-                android:hint="Confirmar senha"
-                android:inputType="textPassword" />
-
-            <Button
-                android:id="@+id/signUpButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="35dp"
-                android:layout_weight="1"
-                android:backgroundTint="#0054B2"
-                android:paddingLeft="50dp"
-                android:paddingTop="15dp"
-                android:paddingRight="50dp"
-                android:paddingBottom="15dp"
-                android:text="Cadastrar"
-                android:textSize="20sp" />
-        </LinearLayout>
-    </ScrollView>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="bottom"
+        app:menu="@menu/bottom_nav_menu"
+        app:itemIconSize="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
