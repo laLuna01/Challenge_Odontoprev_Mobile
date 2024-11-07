@@ -35,7 +35,7 @@ class SignUpFragment : Fragment() {
         init(view)
         datePicker()
         binding.linkSignIn.setOnClickListener {
-            navController.navigate(R.id.action_signUpFragment_to_signInFragment)
+            navController.navigate(R.id.action_signUpFragment_to_signInFragment2)
         }
         binding.signUpButton.setOnClickListener {
             val name = binding.editTextName.text.toString().trim()
@@ -52,7 +52,7 @@ class SignUpFragment : Fragment() {
                     auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
                         if (it.isSuccessful) {
                             Toast.makeText(context, "Cadastro bem-sucedido!", Toast.LENGTH_SHORT).show()
-                            navController.navigate(R.id.action_signUpFragment_to_signInFragment)
+                            navController.navigate(R.id.action_signUpFragment_to_signInFragment2)
                         } else {
                             Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT)
                                 .show()

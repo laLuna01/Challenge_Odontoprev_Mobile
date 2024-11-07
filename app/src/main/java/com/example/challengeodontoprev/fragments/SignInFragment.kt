@@ -32,7 +32,7 @@ class SignInFragment : Fragment() {
 
         init(view)
         binding.linkSignUp.setOnClickListener {
-            navController.navigate(R.id.action_signInFragment_to_signUpFragment)
+            navController.navigate(R.id.action_signInFragment_to_signUpFragment2)
         }
         binding.buttonLogin.setOnClickListener {
             val email = binding.loginEmail.text.toString()
@@ -48,7 +48,7 @@ class SignInFragment : Fragment() {
     private fun loginUser(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
-                navController.navigate(R.id.action_signInFragment_to_homeFragment)
+                navController.navigate(R.id.action_signInFragment_to_homeFragment2)
                 (activity as? MainActivity)?.findViewById<BottomNavigationView>(R.id.bottom_navigation)?.visibility = View.VISIBLE
             } else {
                 Toast.makeText(context, it.exception.toString(), Toast.LENGTH_SHORT).show()

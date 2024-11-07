@@ -6,11 +6,11 @@
     app:startDestination="@id/splashFragment">
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.cp1_mobile.fragments.SplashFragment"
+        android:name="com.example.challengeodontoprev.fragments.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
-            android:id="@+id/action_splashFragment_to_signInFragment"
+            android:id="@+id/action_splashFragment_to_signInFragment2"
             app:destination="@id/signInFragment" />
         <action
             android:id="@+id/action_splashFragment_to_homeFragment"
@@ -18,62 +18,86 @@
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.cp1_mobile.fragments.SignInFragment"
+        android:name="com.example.challengeodontoprev.fragments.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" >
         <action
-            android:id="@+id/action_signInFragment_to_signUpFragment"
+            android:id="@+id/action_signInFragment_to_signUpFragment2"
             app:destination="@id/signUpFragment" />
         <action
-            android:id="@+id/action_signInFragment_to_homeFragment"
+            android:id="@+id/action_signInFragment_to_homeFragment2"
             app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.cp1_mobile.fragments.SignUpFragment"
+        android:name="com.example.challengeodontoprev.fragments.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" >
         <action
-            android:id="@+id/action_signUpFragment_to_signInFragment"
+            android:id="@+id/action_signUpFragment_to_signInFragment2"
             app:destination="@id/signInFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.cp1_mobile.fragments.HomeFragment"
+        android:name="com.example.challengeodontoprev.fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_userFragment"
-            app:destination="@id/userFragment" />
+            android:id="@+id/action_homeFragment_to_insuranceFragment2"
+            app:destination="@id/insuranceFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_medicineFragment"
-            app:destination="@id/medicineFragment" />
+            android:id="@+id/action_homeFragment_to_historyFragment2"
+            app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_userFragment3"
+            app:destination="@id/userFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/insuranceFragment"
+        android:name="com.example.challengeodontoprev.fragments.InsuranceFragment"
+        android:label="fragment_insurance"
+        tools:layout="@layout/fragment_insurance" >
+        <action
+            android:id="@+id/action_insuranceFragment_to_homeFragment2"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_insuranceFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_insuranceFragment_to_userFragment"
+            app:destination="@id/userFragment" />
     </fragment>
     <fragment
         android:id="@+id/userFragment"
-        android:name="com.example.cp1_mobile.fragments.UserFragment"
+        android:name="com.example.challengeodontoprev.fragments.UserFragment"
         android:label="fragment_user"
         tools:layout="@layout/fragment_user" >
+        <action
+            android:id="@+id/action_userFragment_to_splashFragment"
+            app:destination="@id/splashFragment" />
         <action
             android:id="@+id/action_userFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
         <action
-            android:id="@+id/action_userFragment_to_medicineFragment"
-            app:destination="@id/medicineFragment" />
+            android:id="@+id/action_userFragment_to_insuranceFragment"
+            app:destination="@id/insuranceFragment" />
         <action
-            android:id="@+id/action_userFragment_to_splashFragment"
-            app:destination="@id/splashFragment" />
+            android:id="@+id/action_userFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
     </fragment>
     <fragment
-        android:id="@+id/medicineFragment"
-        android:name="com.example.cp1_mobile.fragments.MedicineFragment"
-        android:label="fragment_medicine"
-        tools:layout="@layout/fragment_medicine" >
+        android:id="@+id/historyFragment"
+        android:name="com.example.challengeodontoprev.fragments.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" >
         <action
-            android:id="@+id/action_medicineFragment_to_userFragment"
-            app:destination="@id/userFragment" />
-        <action
-            android:id="@+id/action_medicineFragment_to_homeFragment"
+            android:id="@+id/action_historyFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_historyFragment_to_insuranceFragment"
+            app:destination="@id/insuranceFragment" />
+        <action
+            android:id="@+id/action_historyFragment_to_userFragment"
+            app:destination="@id/userFragment" />
     </fragment>
 </navigation>

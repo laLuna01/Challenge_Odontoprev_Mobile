@@ -7,80 +7,75 @@
     tools:context=".fragments.SignInFragment">
 
     <LinearLayout
-        android:layout_width="277dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingBottom="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="257dp"
-            android:layout_height="187dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="165dp"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/logo" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="277dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/loginEmail"
-                android:layout_width="260dp"
-                android:layout_height="48dp"
-                android:ems="10"
-                android:hint="Digite seu e-mail"
-                android:inputType="text" />
-
-
-            <EditText
-                android:id="@+id/loginPassword"
-                android:layout_width="260dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="7dp"
-                android:ems="10"
-                android:hint="Password"
-                android:inputType="textPassword" />
-        </LinearLayout>
-
-        <LinearLayout
+        <ImageView
+            android:id="@+id/topImage"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:gravity="bottom|center"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/login" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/buttonLogin"
-                android:layout_width="115dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_config"
-                android:text="Login"
-                android:textColor="#FFFFFF" />
-        </LinearLayout>
+        <EditText
+            android:id="@+id/loginEmail"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/baseline_email_24"
+            android:drawablePadding="7dp"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/loginPassword"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/baseline_lock_24"
+            android:drawablePadding="7dp"
+            android:ems="10"
+            android:hint="Senha"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/buttonLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_weight="1"
+            android:backgroundTint="#0054B2"
+            android:paddingLeft="50dp"
+            android:paddingTop="15dp"
+            android:paddingRight="50dp"
+            android:paddingBottom="15dp"
+            android:text="Cadastrar"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/linkSignUp"
-            android:layout_width="wrap_content"
-            android:layout_height="65dp"
-            android:layout_gravity="bottom|center"
-            android:gravity="bottom|center"
-            android:text="Cadastrar novo usuário"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:text="Não tenho cadastro - Criar conta"
+            android:textColor="#0054B1"
             android:textSize="16sp" />
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
