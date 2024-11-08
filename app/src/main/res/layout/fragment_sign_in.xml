@@ -64,7 +64,7 @@
             android:paddingTop="15dp"
             android:paddingRight="50dp"
             android:paddingBottom="15dp"
-            android:text="Cadastrar"
+            android:text="Login"
             android:textSize="20sp" />
 
         <TextView

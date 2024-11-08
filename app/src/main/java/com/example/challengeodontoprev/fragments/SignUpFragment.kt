@@ -3,6 +3,7 @@ package com.example.challengeodontoprev.fragments
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,19 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.challengeodontoprev.R
 import com.example.challengeodontoprev.databinding.FragmentSignUpBinding
+import com.example.challengeodontoprev.utils.RetrofitInstance
+import com.example.challengeodontoprev.utils.ViaCepResponse
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -22,7 +35,9 @@ class SignUpFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var navController: NavController
     private lateinit var binding: FragmentSignUpBinding
+    private lateinit var database: DatabaseReference
     private var inputCep: EditText? = null
+    private var inputNumber: EditText? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +53,7 @@ class SignUpFragment : Fragment() {
         init(view)
         datePicker()
         adressPicker()
+
         binding.linkSignIn.setOnClickListener {
             navController.navigate(R.id.action_signUpFragment_to_signInFragment2)
         }
@@ -46,18 +62,22 @@ class SignUpFragment : Fragment() {
             val email = binding.editTextEmail.text.toString().trim()
             val dayOfBirth = binding.editTextBirth.text.toString().trim()
             val cpf = binding.editTextCpf.text.toString().trim()
-            val cep = binding.editTextAddress.text.toString().trim()
+            val address = binding.editTextAddress.text.toString().trim()
             val gender = getSelectedGender()
             val password = binding.editTextPassword.text.toString().trim()
             val passwordCheck = binding.editTextPasswordCheck.text.toString().trim()
 
-            if (name.isNotEmpty() && email.isNotEmpty() && dayOfBirth.isNotEmpty() && cpf.isNotEmpty() && cep.isNotEmpty() && gender!!.isNotEmpty() && password.isNotEmpty() && passwordCheck.isNotEmpty()) {
+            if (name.isNotEmpty() && email.isNotEmpty() && dayOfBirth.isNotEmpty() && cpf.isNotEmpty() && address.isNotEmpty() && gender!!.isNotEmpty() && password.isNotEmpty() && passwordCheck.isNotEmpty()) {
                 if (isValidEmail(email)) {
                     if (isValidCpf(cpf)) {
                         if (password == passwordCheck) {
                             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
                                 if (it.isSuccessful) {
                                     Toast.makeText(requireContext(), "Cadastro bem-sucedido!", Toast.LENGTH_SHORT).show()
+
+                                    val userEmail = email.replace(".", "_")
+                                    database.child("users").child(userEmail).child("name").setValue(name)
+
                                     navController.navigate(R.id.action_signUpFragment_to_signInFragment2)
                                 } else {
                                     Toast.makeText(requireContext(), it.exception?.message, Toast.LENGTH_SHORT)
@@ -83,6 +103,7 @@ class SignUpFragment : Fragment() {
     private fun init(view: View) {
         navController = Navigation.findNavController(view)
         auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://challenge-odontoprev-default-rtdb.firebaseio.com/")
     }
 
     private fun datePicker() {
@@ -105,17 +126,44 @@ class SignUpFragment : Fragment() {
             val dialogView = layoutInflater.inflate(R.layout.dialog_cep, null)
 
             inputCep = dialogView.findViewById(R.id.editTextCEP)
+            inputNumber = dialogView.findViewById(R.id.editTextNumber)
 
             val dialog = AlertDialog.Builder(requireContext())
                 .setTitle("Buscar endereço")
                 .setView(dialogView)
                 .setPositiveButton("Enviar") { dialog, _ ->
                     val cep = inputCep?.text.toString().trim()
+                    val number = inputNumber?.text.toString().trim()
                     if (cep.isNotEmpty()) {
-                        if (isCepValid(cep)) {
-                            Toast.makeText(requireContext(), "CEP inserido: $cep", Toast.LENGTH_SHORT).show()
+                        if (number.isNotEmpty()) {
+                            if (isCepValid(cep)) {
+                                RetrofitInstance.service.getEndereco(formatCep(cep) ?: "")
+                                    .enqueue(object : Callback<ViaCepResponse> {
+                                        override fun onResponse(call: Call<ViaCepResponse>, response: Response<ViaCepResponse>) {
+                                            if (response.isSuccessful) {
+                                                val endereco = response.body()
+                                                endereco?.let {
+                                                    val enderecoCompleto = "${it.logradouro}, " + number +
+                                                            " - ${it.bairro} - " +
+                                                            "${it.localidade}/" +
+                                                            it.uf
+
+                                                    binding.editTextAddress.setText(enderecoCompleto)
+                                                }
+                                            } else {
+                                                Toast.makeText(requireContext(), "CEP não encontrado", Toast.LENGTH_SHORT).show()
+                                            }
+                                        }
+
+                                        override fun onFailure(call: Call<ViaCepResponse>, t: Throwable) {
+                                            Toast.makeText(requireContext(), "Erro ao buscar o CEP", Toast.LENGTH_SHORT).show()
+                                        }
+                                    })
+                            } else {
+                                Toast.makeText(requireContext(), "CEP inválido", Toast.LENGTH_SHORT).show()
+                            }
                         } else {
-                            Toast.makeText(requireContext(), "CEP inválido", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), "Por favor, insira o número", Toast.LENGTH_SHORT).show()
                         }
                     } else {
                         Toast.makeText(requireContext(), "Por favor, insira um CEP", Toast.LENGTH_SHORT).show()
@@ -142,6 +190,17 @@ class SignUpFragment : Fragment() {
             R.id.radioOther -> "Outro"
             else -> null
         }
+    }
+
+    fun formatCep(cep: String): String {
+        return cep.replace(Regex("[^0-9]"), "")
+            .let {
+                when (it.length) {
+                    in 1..5 -> it
+                    in 6..7 -> it.substring(0, 5) + "-" + it.substring(5)
+                    else -> it.substring(0, 5) + "-" + it.substring(5, 8)
+                }
+            }
     }
 
     private fun isCepValid(cep: String?): Boolean {
