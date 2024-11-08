@@ -66,6 +66,9 @@
         <action
             android:id="@+id/action_insuranceFragment_to_userFragment"
             app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/action_insuranceFragment_to_requestFragment"
+            app:destination="@id/requestFragment" />
     </fragment>
     <fragment
         android:id="@+id/userFragment"
@@ -98,6 +101,33 @@
             app:destination="@id/insuranceFragment" />
         <action
             android:id="@+id/action_historyFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/requestFragment"
+        android:name="com.example.challengeodontoprev.fragments.RequestFragment"
+        android:label="fragment_request"
+        tools:layout="@layout/fragment_request" >
+        <action
+            android:id="@+id/action_requestFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_requestFragment_to_insuranceFragment"
+            app:destination="@id/insuranceFragment" />
+        <action
+            android:id="@+id/action_requestFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_requestFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_requestFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_requestFragment_to_splashFragment"
+            app:destination="@id/splashFragment" />
+        <action
+            android:id="@+id/action_requestFragment_to_userFragment"
             app:destination="@id/userFragment" />
     </fragment>
 </navigation>

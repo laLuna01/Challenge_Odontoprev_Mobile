@@ -31,6 +31,10 @@ class InsuranceFragment : Fragment() {
 
         init(view)
 
+        binding.addInsuranceButton.setOnClickListener {
+            navController.navigate(R.id.action_insuranceFragment_to_requestFragment)
+        }
+
         (activity as? MainActivity)?.findViewById<BottomNavigationView>(R.id.bottom_navigation)?.visibility = View.VISIBLE
 
     }

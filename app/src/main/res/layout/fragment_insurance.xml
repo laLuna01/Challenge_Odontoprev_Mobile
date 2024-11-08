@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".fragments.InsuranceFragment">
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Sinistros"
+        android:textColor="#001D53"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,34 +29,90 @@
         android:fillViewport="true">
 
         <LinearLayout
-            android:id="@+id/medicinesList"
+            android:id="@+id/insuranceText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="true"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Solicitação de Sinistro Odontológico"
+                android:textColor="#173878"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:lineSpacingExtra="5dp"
+                android:text="Bem-vindo(a) à página de Solicitação de Sinistro! Aqui, você pode registrar sua solicitação de forma rápida e segura. \nAntes de iniciar o processo, leia com atenção as instruções abaixo para garantir que todas as informações necessárias sejam fornecidas corretamente." />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Como funciona o processo?"
+                android:textColor="#173878"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:lineSpacingExtra="5dp"
+                android:text="Preenchimento de Dados: Forneça suas informações pessoais e os detalhes do sinistro odontológico, incluindo o tipo de procedimento realizado, data do atendimento e informações do profissional ou clínica odontológica. \nDocumentação: Anexe os documentos necessários, como recibos, laudos médicos, radiografias ou qualquer outro material relevante para análise do sinistro. \nAnálise Preditiva: Nossa equipe utiliza tecnologia de análise preditiva para avaliar solicitações, agilizando o processo de aprovação e garantindo um serviço mais eficiente. \nAcompanhamento: Você poderá acompanhar o status da sua solicitação diretamente pelo app. Qualquer atualização será informada em tempo real para que você esteja sempre ciente do progresso." />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Dicas para uma solicitação eficiente:"
+                android:textColor="#173878"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:lineSpacingExtra="5dp"
+                android:text="Verifique se todos os campos foram preenchidos corretamente antes de enviar. \nCertifique-se de anexar documentos legíveis e com boa qualidade para evitar atrasos na análise. \nEm caso de dúvidas, consulte nossa seção de Perguntas Frequentes (FAQ) ou entre em contato com nosso suporte através do botão de Ajuda." />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:lineSpacingExtra="5dp"
+                android:text="Atenção: O envio de informações incorretas ou incompletas pode resultar em atrasos no processamento do seu sinistro.  "
+                android:textColor="#B52D2D"
+                android:textStyle="bold" />
         </LinearLayout>
     </ScrollView>
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="SInistro"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
-        android:id="@+id/addMedicineButton"
-        android:layout_width="wrap_content"
+        android:id="@+id/addInsuranceButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="96dp"
-        android:text="Adicionar Remédio"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="92dp"
+        android:backgroundTint="#0054B2"
+        android:text="Solicitar Sinistro"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
