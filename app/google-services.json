@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "457498190767",
+    "project_id": "challenge-odontoprev",
+    "storage_bucket": "challenge-odontoprev.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457498190767:android:df3e929b1a4e9e3805055a",
+        "android_client_info": {
+          "package_name": "com.example.challengeodontoprev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoKXLp9bKlS_ZWYVsKEMVz3X2o6Ve92pc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

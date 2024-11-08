@@ -1,11 +1,13 @@
 package com.example.challengeodontoprev.fragments
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -20,6 +22,7 @@ class SignUpFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var navController: NavController
     private lateinit var binding: FragmentSignUpBinding
+    private var inputCep: EditText? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +37,7 @@ class SignUpFragment : Fragment() {
 
         init(view)
         datePicker()
+        adressPicker()
         binding.linkSignIn.setOnClickListener {
             navController.navigate(R.id.action_signUpFragment_to_signInFragment2)
         }
@@ -42,27 +46,35 @@ class SignUpFragment : Fragment() {
             val email = binding.editTextEmail.text.toString().trim()
             val dayOfBirth = binding.editTextBirth.text.toString().trim()
             val cpf = binding.editTextCpf.text.toString().trim()
-            val cep = binding.editTextCep.text.toString().trim()
+            val cep = binding.editTextAddress.text.toString().trim()
             val gender = getSelectedGender()
             val password = binding.editTextPassword.text.toString().trim()
             val passwordCheck = binding.editTextPasswordCheck.text.toString().trim()
 
             if (name.isNotEmpty() && email.isNotEmpty() && dayOfBirth.isNotEmpty() && cpf.isNotEmpty() && cep.isNotEmpty() && gender!!.isNotEmpty() && password.isNotEmpty() && passwordCheck.isNotEmpty()) {
                 if (isValidEmail(email)) {
-                    auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            Toast.makeText(context, "Cadastro bem-sucedido!", Toast.LENGTH_SHORT).show()
-                            navController.navigate(R.id.action_signUpFragment_to_signInFragment2)
+                    if (isValidCpf(cpf)) {
+                        if (password == passwordCheck) {
+                            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+                                if (it.isSuccessful) {
+                                    Toast.makeText(requireContext(), "Cadastro bem-sucedido!", Toast.LENGTH_SHORT).show()
+                                    navController.navigate(R.id.action_signUpFragment_to_signInFragment2)
+                                } else {
+                                    Toast.makeText(requireContext(), it.exception?.message, Toast.LENGTH_SHORT)
+                                        .show()
+                                }
+                            }
                         } else {
-                            Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT)
-                                .show()
+                            Toast.makeText(requireContext(), "As senhas devem ser iguais", Toast.LENGTH_SHORT).show()
                         }
+                    } else {
+                        Toast.makeText(requireContext(), "Cpf inválido", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Toast.makeText(context, "Email inválido", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Email inválido", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(context, "Por favor, preencha todos os campos.", Toast.LENGTH_SHORT)
+                Toast.makeText(requireContext(), "Por favor, preencha todos os campos.", Toast.LENGTH_SHORT)
                     .show()
             }
         }
@@ -88,6 +100,34 @@ class SignUpFragment : Fragment() {
         }
     }
 
+    private fun adressPicker() {
+        binding.editTextAddress.setOnClickListener {
+            val dialogView = layoutInflater.inflate(R.layout.dialog_cep, null)
+
+            inputCep = dialogView.findViewById(R.id.editTextCEP)
+
+            val dialog = AlertDialog.Builder(requireContext())
+                .setTitle("Buscar endereço")
+                .setView(dialogView)
+                .setPositiveButton("Enviar") { dialog, _ ->
+                    val cep = inputCep?.text.toString().trim()
+                    if (cep.isNotEmpty()) {
+                        if (isCepValid(cep)) {
+                            Toast.makeText(requireContext(), "CEP inserido: $cep", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(requireContext(), "CEP inválido", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        Toast.makeText(requireContext(), "Por favor, insira um CEP", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .setNegativeButton("Cancelar", null)
+                .create()
+
+            dialog.show()
+        }
+    }
+
     private fun updateDate(calendar: Calendar) {
         val format = "dd/MM/yyyy"
         val sdf = SimpleDateFormat(format, Locale.ROOT)
@@ -104,6 +144,10 @@ class SignUpFragment : Fragment() {
         }
     }
 
+    private fun isCepValid(cep: String?): Boolean {
+        val cepPattern = Regex("^[0-9]{8}$")
+        return !cep.isNullOrBlank() && cep.matches(cepPattern)
+    }
 
     private fun isValidEmail(email: String): Boolean {
         val emailRegex = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$"
